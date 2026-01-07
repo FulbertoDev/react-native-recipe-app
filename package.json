@@ -1,6 +1,6 @@
 {
   "name": "react-native-recipe-app",
-  "main": "App.tsx",
+  "main": "App.js",
   "version": "1.0.0",
   "scripts": {
     "start": "expo start",
