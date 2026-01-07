@@ -1,24 +1,37 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
 
-import { useColorScheme } from '@/hooks/use-color-scheme';
-
-export const unstable_settings = {
-  anchor: '(tabs)',
-};
+import { Stack } from "expo-router";
+import { COLORS } from "../constants/theme";
+import { RecipeProvider } from "../context/RecipeContext";
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
+    <RecipeProvider>
+      <Stack
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: COLORS.white,
+          },
+          headerShadowVisible: false,
+          headerTintColor: COLORS.textPrimary,
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+          contentStyle: {
+            backgroundColor: COLORS.background,
+          },
+        }}
+      >
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="recipe/[id]" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="add-recipe"
+          options={{
+            title: "Add New Recipe",
+            presentation: "modal",
+            headerShown: true
+          }}
+        />
       </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    </RecipeProvider>
   );
 }
